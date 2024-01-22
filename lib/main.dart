@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Practise',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Stepper'),
+      home: const MyHomePage(title: 'Fitted Box'),
     );
   }
 }
@@ -31,50 +31,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentStep = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: const Color.fromARGB(255, 2, 36, 87),
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
-        child: Stepper(
-          steps: const [
-            Step(
-              title: Text('Step 1'),
-              content: Text('Information for step 1'),
+        child: Container(
+          width: 300,
+          height: 150,
+          color: Colors.red,
+          padding: const EdgeInsets.all(10.0),
+          //since this text will not be fixed in container we will add fitted box
+          child: const FittedBox(
+            child: Text(
+              'FLUTTER MAPP',
+              style: TextStyle(
+                fontSize: 100,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            Step(
-              title: Text('Step 2'),
-              content: Text('Information for step 2'),
-            ),
-            Step(
-              title: Text('Step 3'),
-              content: Text('Information for step 3'),
-            ),
-          ],
-          onStepTapped: (int newIndex) {
-            setState(() {
-              _currentStep = newIndex;
-            });
-          },
-          currentStep: _currentStep,
-          onStepContinue: () {
-            if (_currentStep != 2) {
-              setState(() {
-                _currentStep += 1;
-              });
-            }
-          },
-          onStepCancel: () {
-            if (_currentStep != 0) {
-              setState(() {
-                _currentStep -= 1;
-              });
-            }
-          },
+          ),
         ),
       ),
     );
