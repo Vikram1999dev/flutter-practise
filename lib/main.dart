@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Practise',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Stepper'),
     );
   }
 }
@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _currentStep = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +39,42 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Center(
+        child: Stepper(
+          steps: const [
+            Step(
+              title: Text('Step 1'),
+              content: Text('Information for step 1'),
+            ),
+            Step(
+              title: Text('Step 2'),
+              content: Text('Information for step 2'),
+            ),
+            Step(
+              title: Text('Step 3'),
+              content: Text('Information for step 3'),
+            ),
+          ],
+          onStepTapped: (int newIndex) {
+            setState(() {
+              _currentStep = newIndex;
+            });
+          },
+          currentStep: _currentStep,
+          onStepContinue: () {
+            if (_currentStep != 2) {
+              setState(() {
+                _currentStep += 1;
+              });
+            }
+          },
+          onStepCancel: () {
+            if (_currentStep != 0) {
+              setState(() {
+                _currentStep -= 1;
+              });
+            }
+          },
         ),
       ),
     );
