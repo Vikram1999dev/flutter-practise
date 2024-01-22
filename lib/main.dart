@@ -30,62 +30,43 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-// hero smoothly animates it from one screen to another
+// ChoiceChips represent a single choice from a set.
 class _MyHomePageState extends State<MyHomePage> {
+  int? _value = 1;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 2, 36, 87),
-          title: Text(
-            widget.title,
-            style: const TextStyle(color: Colors.white),
-          ),
-        ),
-        body: const ListTileWidget());
-  }
-}
-
-class ListTileWidget extends StatelessWidget {
-  const ListTileWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      trailing: const Hero(tag: 'tag-1', child: Icon(Icons.person)),
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const SecondPage()),
-        );
-      },
-      title: const Text('click on me'),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('second page'),
+        title: const Text('ActionChoice Sample'),
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Hero(
-            tag: 'tag-1',
-            child: Container(
-              color: Colors.orangeAccent,
-              height: 100,
-              width: 100,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Choose an item', style: textTheme.labelLarge),
+            const SizedBox(height: 10.0),
+            Wrap(
+              spacing: 5.0,
+              children: List<Widget>.generate(
+                3,
+                (int index) {
+                  return ChoiceChip(
+                    label: Text('Item $index'),
+                    selected: _value == index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? index : null;
+                      });
+                    },
+                  );
+                },
+              ),
             ),
-          )
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
