@@ -53,8 +53,6 @@ class ListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       trailing: const Hero(tag: 'tag-1', child: Icon(Icons.person)),
-      // onTap: Navigator.of(context)
-      //     .push(MaterialPageRoute(builder: (context) =>  SecondPage())),
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const SecondPage()),
