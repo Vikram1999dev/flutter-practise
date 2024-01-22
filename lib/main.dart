@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Fitted Box'),
+      home: const MyHomePage(title: 'Hero'),
     );
   }
 }
@@ -30,36 +30,64 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// hero smoothly animates it from one screen to another
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 2, 36, 87),
-        title: Text(
-          widget.title,
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 150,
-          color: Colors.red,
-          padding: const EdgeInsets.all(10.0),
-          //since this text will not be fixed in container we will add fitted box
-          child: const FittedBox(
-            child: Text(
-              'FLUTTER MAPP',
-              style: TextStyle(
-                fontSize: 100,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 2, 36, 87),
+          title: Text(
+            widget.title,
+            style: const TextStyle(color: Colors.white),
           ),
         ),
+        body: const ListTileWidget());
+  }
+}
+
+class ListTileWidget extends StatelessWidget {
+  const ListTileWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      trailing: const Hero(tag: 'tag-1', child: Icon(Icons.person)),
+      // onTap: Navigator.of(context)
+      //     .push(MaterialPageRoute(builder: (context) =>  SecondPage())),
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const SecondPage()),
+        );
+      },
+      title: const Text('click on me'),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  const SecondPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('second page'),
       ),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Hero(
+            tag: 'tag-1',
+            child: Container(
+              color: Colors.orangeAccent,
+              height: 100,
+              width: 100,
+            ),
+          )
+        ],
+      )),
     );
   }
 }
