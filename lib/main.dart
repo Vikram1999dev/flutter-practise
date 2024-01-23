@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -30,41 +31,39 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+Stream<int> generateStream() async* {
+  await Future<void>.delayed(const Duration(seconds: 2));
+  yield 1;
+  await Future<void>.delayed(const Duration(seconds: 1));
+  yield 2;
+  await Future<void>.delayed(const Duration(seconds: 1));
+  yield 3;
+}
+
 // ChoiceChips represent a single choice from a set.
 class _MyHomePageState extends State<MyHomePage> {
-  int? _value = 1;
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('ActionChoice Sample'),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Choose an item', style: textTheme.labelLarge),
-            const SizedBox(height: 10.0),
-            Wrap(
-              spacing: 5.0,
-              children: List<Widget>.generate(
-                3,
-                (int index) {
-                  return ChoiceChip(
-                    label: Text('Item $index'),
-                    selected: _value == index,
-                    onSelected: (bool selected) {
-                      setState(() {
-                        _value = selected ? index : null;
-                      });
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+        child: StreamBuilder(
+          stream: generateStream(),
+          builder: ((context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator.adaptive();
+            }
+            if (snapshot.hasError) {
+              return const Text('Error');
+            } else {
+              return Text(
+                snapshot.data.toString(),
+                style: const TextStyle(fontSize: 40),
+              );
+            }
+          }),
         ),
       ),
     );
