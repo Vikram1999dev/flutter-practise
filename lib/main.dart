@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -31,40 +30,45 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-Stream<int> generateStream() async* {
-  await Future<void>.delayed(const Duration(seconds: 2));
-  yield 1;
-  await Future<void>.delayed(const Duration(seconds: 1));
-  yield 2;
-  await Future<void>.delayed(const Duration(seconds: 1));
-  yield 3;
-}
-
 // ChoiceChips represent a single choice from a set.
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ActionChoice Sample'),
-      ),
-      body: Center(
-        child: StreamBuilder(
-          stream: generateStream(),
-          builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator.adaptive();
-            }
-            if (snapshot.hasError) {
-              return const Text('Error');
-            } else {
-              return Text(
-                snapshot.data.toString(),
-                style: const TextStyle(fontSize: 40),
-              );
-            }
-          }),
-        ),
+      body: CustomScrollView(
+        slivers: [
+          const SliverAppBar(
+            //if you want your appbar to stay there use
+            //pinned as true
+            //when scrolling it will also
+            // make flexible space disappear
+            pinned: true,
+            //if we want the appbar to comeback immediately when we scroll back
+            //we use floating as true
+            // floating: true,
+            snap: false,
+            title: Text(
+              'Sliver App Bar',
+              style: TextStyle(color: Colors.white),
+            ),
+            expandedHeight: 150.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Extra Space'),
+              centerTitle: true,
+            ),
+            backgroundColor: Colors.blue,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                const Text(
+                  'Sliver',
+                  style: TextStyle(fontSize: 600),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
