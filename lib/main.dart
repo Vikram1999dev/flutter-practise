@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _image = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.asset(
-        'assets/imgs/image.jpg',
+        'assets/image.jpg',
         height: 100,
         width: 100,
         fit: BoxFit.cover,
