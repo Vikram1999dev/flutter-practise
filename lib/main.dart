@@ -40,7 +40,6 @@ Stream<int> generateStream() async* {
   yield 3;
 }
 
-// ChoiceChips represent a single choice from a set.
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
