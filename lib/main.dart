@@ -44,13 +44,31 @@ class _MyHomePageState extends State<MyHomePage> {
             //for a scrolling list. It does this by following a set of instructions (callback)
             //on how to build each individual item in the list.
             (BuildContext context, int index) {
-              return ListTile(
-                title: Text('Item $index'),
-              );
+              return ListContainer(index: index);
             },
           ),
         ),
       ]),
+    );
+  }
+}
+
+class ListContainer extends StatelessWidget {
+  // Non-const constructor, and index is marked as required.
+  const ListContainer({Key? key, required this.index}) : super(key: key);
+
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      color: Colors.primaries[index % Colors.primaries.length],
+      alignment: Alignment.center,
+      child: Text(
+        'Item $index',
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 }
