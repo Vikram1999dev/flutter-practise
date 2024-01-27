@@ -36,41 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            //if you want your appbar to stay there use
-            //pinned as true
-            //when scrolling it will also
-            // make flexible space disappear
-            pinned: true,
-            //if we want the appbar to comeback immediately when we scroll back
-            //we use floating as true
-            // floating: true,
-            snap: false,
-            title: Text(
-              'Sliver App Bar',
-              style: TextStyle(color: Colors.white),
-            ),
-            expandedHeight: 150.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('Extra Space'),
-              centerTitle: true,
-            ),
-            backgroundColor: Colors.blue,
+      body: CustomScrollView(slivers: <Widget>[
+        SliverList(
+          // delegate ->  it determines what content should be displayed in the list.
+          delegate: SliverChildBuilderDelegate(
+            // the SliverChildBuilderDelegate -->creates a helper (delegate) that knows how to make elements
+            //for a scrolling list. It does this by following a set of instructions (callback)
+            //on how to build each individual item in the list.
+            (BuildContext context, int index) {
+              return ListTile(
+                title: Text('Item $index'),
+              );
+            },
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                const Text(
-                  'Sliver',
-                  style: TextStyle(fontSize: 600),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
