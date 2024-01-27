@@ -36,33 +36,50 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(slivers: <Widget>[
-        SliverList(
-          // delegate ->  it determines what content should be displayed in the list.
-          delegate: SliverChildBuilderDelegate(
-            // the SliverChildBuilderDelegate -->creates a helper (delegate) that knows how to make elements
-            //for a scrolling list. It does this by following a set of instructions (callback)
-            //on how to build each individual item in the list.
-            (BuildContext context, int index) {
-              return ListContainer(index: index);
-            },
-          ),
+      appBar: AppBar(
+        title: const Text(
+          'App Bar',
+          style: TextStyle(color: Colors.white),
         ),
-      ]),
+        backgroundColor: Colors.blue[900],
+      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverGrid(
+            // So, SliverGridDelegateWithMaxCrossAxisExtent is a specific type of grid delegate
+            //that says, "I want a grid, and each item should be a certain maximum width or height."
+            //This helps in creating a grid where items have a consistent size, making it easy
+            //to control the overall layout.
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              // Maximum width or height of each item
+              maxCrossAxisExtent: 150.0,
+              // Spacing between items horizontally
+              crossAxisSpacing: 8.0,
+              // Spacing between items vertically
+              mainAxisSpacing: 8.0,
+              // Ratio of the width to the height of each item
+              childAspectRatio: 0.25,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return GridItem(index: index);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class ListContainer extends StatelessWidget {
-  // Non-const constructor, and index is marked as required.
-  const ListContainer({Key? key, required this.index}) : super(key: key);
+class GridItem extends StatelessWidget {
+  const GridItem({Key? key, required this.index}) : super(key: key);
 
   final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
       color: Colors.primaries[index % Colors.primaries.length],
       alignment: Alignment.center,
       child: Text(
