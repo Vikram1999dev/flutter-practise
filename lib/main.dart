@@ -30,7 +30,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-// ChoiceChips represent a single choice from a set.
+// With slivers, you can create a dynamic, lazy-loading system. Only the slivers that are currently
+//visible on the screen (or nearby) will be loaded, making the scrolling smoother and more efficient.
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
