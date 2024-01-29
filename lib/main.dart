@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Hero'),
+      home: const MyHomePage(title: 'Expansion Tile'),
     );
   }
 }
@@ -32,33 +32,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Widget _image;
-
-  List<Widget> _list = []; // Initialize the list with empty values
-
-  @override
-  void initState() {
-    super.initState();
-    _image = Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Image.asset(
-        'assets/image.jpg',
-        height: 100,
-        width: 100,
-        fit: BoxFit.cover,
-      ),
-    );
-
-    _list = List.filled(8, _image); // Fill the list with the initialized image
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Wrap(
-          children: _list,
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
         ),
+        backgroundColor: Colors.blue,
+      ),
+      body: const ExpansionTile(
+        title: Text('See More'),
+        leading: Icon(Icons.info),
+        children: [
+          ListTile(title: Text('First')),
+          ListTile(title: Text('Second')),
+          ListTile(title: Text('Third')),
+        ],
       ),
     );
   }
