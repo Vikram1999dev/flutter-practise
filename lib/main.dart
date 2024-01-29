@@ -33,44 +33,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  DateTime _dateTime = DateTime.now();
+  String title = '';
+  String firstPage = 'First Page';
+  String secondPage = 'Second Page';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.title,
+          title,
           style: const TextStyle(color: Colors.white),
         ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: ((context) => [
+                  PopupMenuItem(value: firstPage, child: Text(firstPage)),
+                  PopupMenuItem(value: secondPage, child: Text(secondPage))
+                ]),
+            onSelected: (String newValue) {
+              setState(() {
+                title = newValue;
+              });
+            },
+          )
+        ],
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
-              style: const TextStyle(fontSize: 40),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                DateTime? newDate = await showDatePicker(
-                  context: context,
-                  firstDate: DateTime(1800),
-                  lastDate: DateTime(3000),
-                );
-                if (newDate != null) {
-                  setState(() {
-                    _dateTime = newDate;
-                  });
-                }
-              },
-              child: const Text('Calendar'),
-            ),
-          ],
-        ),
-      ),
+      body: const Center(),
     );
   }
 }
