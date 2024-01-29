@@ -33,7 +33,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TimeOfDay? time = TimeOfDay.now();
+  DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,30 +46,31 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.blue,
       ),
       body: Center(
-        child: Text(
-          _formatTime(time!),
-          style: const TextStyle(fontSize: 60),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
+              style: const TextStyle(fontSize: 40),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                DateTime? newDate = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1800),
+                  lastDate: DateTime(3000),
+                );
+                if (newDate != null) {
+                  setState(() {
+                    _dateTime = newDate;
+                  });
+                }
+              },
+              child: const Text('Calendar'),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.access_time_outlined),
-        onPressed: () async {
-          TimeOfDay? newTime =
-              await showTimePicker(context: context, initialTime: time!);
-          if (newTime != null) {
-            setState(() {
-              time = newTime;
-            });
-          }
-        },
       ),
     );
   }
-}
-
-String _formatTime(TimeOfDay time) {
-  int hour = time.hourOfPeriod;
-  String minute = time.minute.toString().padLeft(2, '0');
-  String period = time.period == DayPeriod.am ? 'AM' : 'PM';
-  return '$hour:$minute $period';
 }
