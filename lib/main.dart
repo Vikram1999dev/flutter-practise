@@ -49,8 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: RangeSlider(
+          // this is the value
           values: values,
           divisions: 10,
+          //this is the label shown as the tooltip
           labels: labels,
           onChanged: (newValues) {
             setState(() {
