@@ -17,14 +17,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Page View'),
+      home: const MyHomePage(title: 'Modal Bottom Sheet'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title});
-  final TimeOfDay? time = const TimeOfDay(hour: 12, minute: 12);
 
   final String title;
 
@@ -43,36 +42,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: const Color.fromARGB(255, 47, 105, 191),
       ),
-      body: PageView(
-        children: [
-          Container(
-            color: Colors.blue,
-            child: const Center(
-              child: Text(
-                'Page 1',
-                style: TextStyle(color: Colors.white, fontSize: 60),
-              ),
-            ),
-          ),
-          Container(
-            color: const Color.fromARGB(255, 16, 48, 74),
-            child: const Center(
-              child: Text(
-                'Page 2',
-                style: TextStyle(color: Colors.white, fontSize: 60),
-              ),
-            ),
-          ),
-          Container(
-            color: const Color.fromARGB(255, 227, 46, 6),
-            child: const Center(
-              child: Text(
-                'Page 3',
-                style: TextStyle(color: Colors.white, fontSize: 60),
-              ),
-            ),
-          )
-        ],
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Bottom Sheet'),
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: 400,
+                  width: MediaQuery.of(context).size.width,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
