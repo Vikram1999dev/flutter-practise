@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Bottom Navigation Bar'),
+      home: const MyHomePage(title: 'Page View'),
     );
   }
 }
@@ -33,13 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _currentIndex = 0;
-  List<Widget> body = const [
-    Icon(Icons.home),
-    Icon(Icons.person),
-    Icon(Icons.menu)
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,20 +43,35 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         backgroundColor: const Color.fromARGB(255, 47, 105, 191),
       ),
-      body: Center(
-        child: body[_currentIndex],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (int newIndex) {
-          setState(() {
-            _currentIndex = newIndex;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Person', icon: Icon(Icons.person)),
-          BottomNavigationBarItem(label: 'Menu', icon: Icon(Icons.menu)),
+      body: PageView(
+        children: [
+          Container(
+            color: Colors.blue,
+            child: const Center(
+              child: Text(
+                'Page 1',
+                style: TextStyle(color: Colors.white, fontSize: 60),
+              ),
+            ),
+          ),
+          Container(
+            color: const Color.fromARGB(255, 16, 48, 74),
+            child: const Center(
+              child: Text(
+                'Page 2',
+                style: TextStyle(color: Colors.white, fontSize: 60),
+              ),
+            ),
+          ),
+          Container(
+            color: const Color.fromARGB(255, 227, 46, 6),
+            child: const Center(
+              child: Text(
+                'Page 3',
+                style: TextStyle(color: Colors.white, fontSize: 60),
+              ),
+            ),
+          )
         ],
       ),
     );
