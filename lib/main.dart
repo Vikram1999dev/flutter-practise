@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Range Slider'),
+      home: const MyHomePage(title: 'Visibility'),
     );
   }
 }
@@ -33,32 +33,61 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  RangeValues values = const RangeValues(0.0, 0.5);
+  bool _isVisible = true;
 
   @override
   Widget build(BuildContext context) {
-    RangeLabels labels =
-        RangeLabels(values.start.toString(), values.end.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.title,
           style: const TextStyle(color: Colors.white),
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _isVisible = !_isVisible;
+              });
+            },
+            child: const Text(
+              'Switch',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
         backgroundColor: const Color.fromARGB(255, 47, 105, 191),
       ),
-      body: Center(
-        child: RangeSlider(
-          // this is the value
-          values: values,
-          divisions: 10,
-          //this is the label shown as the tooltip
-          labels: labels,
-          onChanged: (newValues) {
-            setState(() {
-              values = newValues;
-            });
-          },
+      body: SizedBox(
+        width: double.infinity,
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Wrap(
+                      children: [
+                        Center(
+                          child: Column(
+                            children: [
+                              Image.asset('assets/imgs/image.jpg'),
+                              Visibility(
+                                visible: _isVisible,
+                                child: Image.asset('assets/imgs/coke.png'),
+                              ),
+                              Image.asset('assets/imgs/image.jpg')
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
