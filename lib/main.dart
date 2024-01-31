@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Visibility'),
+      home: const MyHomePage(title: 'Bottom Navigation Bar'),
     );
   }
 }
@@ -33,7 +33,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isVisible = true;
+  int _currentIndex = 0;
+  List<Widget> body = const [
+    Icon(Icons.home),
+    Icon(Icons.person),
+    Icon(Icons.menu)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,52 +48,23 @@ class _MyHomePageState extends State<MyHomePage> {
           widget.title,
           style: const TextStyle(color: Colors.white),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _isVisible = !_isVisible;
-              });
-            },
-            child: const Text(
-              'Switch',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ],
         backgroundColor: const Color.fromARGB(255, 47, 105, 191),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Padding(
-                    padding: const EdgeInsets.all(50.0),
-                    child: Wrap(
-                      children: [
-                        Center(
-                          child: Column(
-                            children: [
-                              Image.asset('assets/imgs/image.jpg'),
-                              Visibility(
-                                visible: _isVisible,
-                                child: Image.asset('assets/imgs/coke.png'),
-                              ),
-                              Image.asset('assets/imgs/image.jpg')
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+      body: Center(
+        child: body[_currentIndex],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int newIndex) {
+          setState(() {
+            _currentIndex = newIndex;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
+          BottomNavigationBarItem(label: 'Person', icon: Icon(Icons.person)),
+          BottomNavigationBarItem(label: 'Menu', icon: Icon(Icons.menu)),
+        ],
       ),
     );
   }
