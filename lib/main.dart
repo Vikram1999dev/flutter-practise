@@ -31,6 +31,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 // hero smoothly animates it from one screen to another
+// before using that there will be tranisition
+//but the hero make this transition much more smoother
+//giving more animatated interaction
+//
+// It's designed to create a smooth transition between two instances of
+//the Hero widget that share the same tag. The transition is typically
+// applied to properties like position, scale, and opacity of the Hero widgets.
+//
+// The Hero widget should ideally encapsulate the specific widget you want to transition.
+//
+// It's common to wrap an image, icon, or any other widget you want to animate within the Hero
+//
+// The key is to apply the Hero widget to the specific widgets you want to transition smoothly.
+
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
@@ -73,19 +87,20 @@ class SecondPage extends StatelessWidget {
         title: const Text('second page'),
       ),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Hero(
-            tag: 'tag-1',
-            child: Container(
-              color: Colors.orangeAccent,
-              height: 100,
-              width: 100,
-            ),
-          )
-        ],
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Hero(
+              tag: 'tag-1',
+              child: Container(
+                color: Colors.orangeAccent,
+                height: 100,
+                width: 100,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
