@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Hero'),
+      home: const MyHomePage(title: 'Choice Chip'),
     );
   }
 }
@@ -38,7 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
     final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ActionChoice Sample'),
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Column(
@@ -50,10 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Wrap(
               spacing: 5.0,
               children: List<Widget>.generate(
-                3,
+                8,
                 (int index) {
                   return ChoiceChip(
-                    label: Text('Item $index'),
+                    label: Text('Item ${index + 1}'),
                     selected: _value == index,
                     onSelected: (bool selected) {
                       setState(() {
