@@ -54,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ListContainer extends StatelessWidget {
-  // Non-const constructor, and index is marked as required.
   const ListContainer({Key? key, required this.index}) : super(key: key);
 
   final int index;
