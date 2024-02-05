@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Hero'),
+      home: const MyHomePage(title: 'Sliver App Example 3'),
     );
   }
 }
@@ -37,9 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'App Bar',
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blue[900],
       ),
